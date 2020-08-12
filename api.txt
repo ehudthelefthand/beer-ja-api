@@ -1,0 +1,25 @@
+CRUD Beer
+
+CRUD Review
+
+ที่จะสอน
+
+GET /beers
+Body
+[
+    {
+        ... Beer Body
+    }
+]
+
+GET /beers/:id
+Body
+{
+    id: int
+    ... Beer Body
+    reviews: [
+        ... Review Body
+    ]
+}
+
+POST /beers/:id/reviews
