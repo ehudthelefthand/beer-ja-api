@@ -10,5 +10,9 @@ test('GET /beers', (done) => {
         .get('/beers')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(done)
+        .end((err, res) => {
+            if (err) return done(err)
+            expect(res.body.length).toBe(1)
+            done()
+        })
 })

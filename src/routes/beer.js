@@ -4,7 +4,7 @@ module.exports = () => {
     const router = Router()
 
     router.get('/', (req, res) => {
-        res.json()
+        res.json([{}])
     })
 
     return router
