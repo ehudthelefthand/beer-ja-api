@@ -16,3 +16,17 @@ test('GET /beers', (done) => {
             done()
         })
 })
+
+test('GET /beers/:id', (done) => {
+    request(app)
+        .get('/beers/1')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end((err, res) => {
+            if (err) return done(err)
+            expect(res.body.id).toBeDefined()
+            expect(res.body.reviews.length).toBe(1)
+            expect(res.body.reviews[0].id).toBeDefined()
+            done()
+        })
+})
