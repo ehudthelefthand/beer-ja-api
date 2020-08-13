@@ -39,3 +39,9 @@ test('POST /beers', (done) => {
         .attach('image', `${__dirname}/fixture/beer.jpg`)
         .expect(200, done)
 })
+
+test('DELETE /beers/:id', (done) => {
+    request(app)
+        .delete('/beers/1')
+        .expect(200, done)
+})

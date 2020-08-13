@@ -1,4 +1,6 @@
 const { Router } = require('express')
+const multer = require('multer')
+const path = require('path')
 
 module.exports = () => {
     const data = [{
@@ -7,6 +9,17 @@ module.exports = () => {
             id: 1,
         }]
     }]
+
+    const storage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, 'uploads/')
+        },
+        filename: (req, file, cb) => {
+            cb(null, `${Date.now()}${path.extname(file.originalname)}`)
+        }
+    })
+
+    const upload = multer({ storage })
 
     const router = Router()
 
@@ -18,7 +31,11 @@ module.exports = () => {
         res.json(data[0])
     })
 
-    router.post('/', (req, res) => {
+    router.post('/', upload.single('image'), (req, res) => {
+        res.sendStatus(200)
+    })
+
+    router.delete('/:id', (req, res) => {
         res.sendStatus(200)
     })
 
