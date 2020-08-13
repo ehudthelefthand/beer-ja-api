@@ -23,3 +23,15 @@ Body
 }
 
 POST /beers/:id/reviews
+
+{
+    id: string,
+    name: string,
+    brand: string,
+    price: number,
+    image: string,
+    reviews: [{
+        id: string,
+        text: string
+    }]
+}

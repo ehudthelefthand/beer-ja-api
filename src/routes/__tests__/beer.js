@@ -30,3 +30,12 @@ test('GET /beers/:id', (done) => {
             done()
         })
 })
+
+test('POST /beers', (done) => {
+    request(app)
+        .post('/beers')
+        .field('name', 'test name')
+        .field('brand', 'test brand')
+        .attach('image', `${__dirname}/fixture/beer.jpg`)
+        .expect(200, done)
+})
