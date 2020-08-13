@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const multer = require('multer')
 const path = require('path')
+const Beer = require('../models/beer')
 
 module.exports = () => {
     const data = [{
@@ -31,8 +32,14 @@ module.exports = () => {
         res.json(data[0])
     })
 
-    router.post('/', upload.single('image'), (req, res) => {
-        res.sendStatus(200)
+    router.post('/', upload.single('image'), async (req, res, next) => {
+        try {
+            await Beer.create(req.body)
+            res.sendStatus(200)
+        } catch (err) {
+            console.log(err)
+            next(err)
+        }
     })
 
     router.delete('/:id', (req, res) => {

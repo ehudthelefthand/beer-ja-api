@@ -6,6 +6,7 @@ const database = require('./database')
     const app = express()
 
     await database()
+
     routes(app)
 
     app.use((err, req, res, next) => {

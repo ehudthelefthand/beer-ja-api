@@ -26,10 +26,11 @@ POST /beers/:id/reviews
 
 {
     id: string,
-    name: string,
-    brand: string,
-    price: number,
+    name: string, // req
+    brand: string, // req
+    price: number, // req
     image: string,
+    shops: [ string ],
     reviews: [{
         id: string,
         text: string

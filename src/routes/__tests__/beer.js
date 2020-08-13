@@ -1,6 +1,7 @@
 const express = require('express')
 const request = require('supertest')
 const beer = require('../beer')
+const database = require('../../database')
 
 const app = express()
 app.use('/beers', beer())
@@ -31,13 +32,14 @@ test('GET /beers/:id', (done) => {
         })
 })
 
-test('POST /beers', (done) => {
-    request(app)
+test('POST /beers', async () => {
+    await database()
+    await request(app)
         .post('/beers')
         .field('name', 'test name')
         .field('brand', 'test brand')
         .attach('image', `${__dirname}/fixture/beer.jpg`)
-        .expect(200, done)
+        .expect(200)
 })
 
 test('DELETE /beers/:id', (done) => {
