@@ -1,10 +1,16 @@
 const express = require('express')
+const routes = require('./routes')
+const database = require('./database')
 
-const app = express()
+(async () => {
+    const app = express()
 
-app.get('/', (req, res) => {
-    // res.end('hello')
-    res.sendStatus(500)
+    await database()
+    routes(app)
+
+    app.use((err, req, res, next) => {
+        console.log(err)
+    })
+
+   app.listen(8080, () => console.log('started at 8080'))
 })
-
-app.listen(8080, () => console.log('started at 8080'))
