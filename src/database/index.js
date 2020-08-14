@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 module.exports = async () => {
     try {
         await mongoose.connect(
-            `mongodb://admin:password@localhost:27017/beerja`,
+            `mongodb://admin:password@localhost:27017/beerja?authSource=admin`,
             {
                 useNewUrlParser: true,
                 useCreateIndex: true,
