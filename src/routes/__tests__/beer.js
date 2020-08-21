@@ -1,10 +1,14 @@
 const express = require('express')
 const request = require('supertest')
 const beer = require('../beer')
-const database = require('../../database')
+const { connect, close } = require('../../database')
 
 const app = express()
 app.use('/beers', beer())
+
+afterAll(async() => {
+    await close()
+})
 
 test('GET /beers', async (done) => {
     const res = await request(app).get('/beers')
@@ -28,14 +32,10 @@ test('GET /beers/:id', (done) => {
         })
 })
 
-test('POST /beers', async (done) => {
-    // try {
-        await database()
-        done()
-    // } catch (err) {
-    //     console.log(err)
-    //     done()
-    // }
+test.only('POST /beers', async () => {
+    jest.setTimeout(60000);
+    try {
+        await connect()
     // await request(app)
     //     .post('/beers')
     //     .field('name', 'test name')
@@ -43,6 +43,10 @@ test('POST /beers', async (done) => {
     //     .attach('image', `${__dirname}/fixture/beer.jpg`)
     //     .expect(200)
     //     .end(done)
+    } catch (err) {
+        throw err
+    }
+
 })
 
 test('DELETE /beers/:id', (done) => {
