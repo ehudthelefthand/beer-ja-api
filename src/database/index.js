@@ -1,19 +1,16 @@
 const mongoose = require('mongoose')
 
 const connect = () => {
-    return mongoose.connect(`mongodb://localhost:27018/beerja`,
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        },
-    )
+    return mongoose.connect('mongodb://localhost:27017/whatever', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
 }
 
-const close = () => {
-    return mongoose.connection.close()
+const disconnect = async () => {
+    return mongoose.disconnect()
 }
 
 module.exports = {
-    connect,
-    close
+    connect, disconnect
 }

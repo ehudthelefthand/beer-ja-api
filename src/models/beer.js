@@ -1,12 +1,21 @@
 const mongoose = require('mongoose')
 
 const beerSchema = new mongoose.Schema({
-    name: String,
-    brand: String,
-    price: Number,
-    image: String,
-    shops: [String],
-    reviews: [String]
-})
+    name: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    brand: {
+        type: String,
+        required: true
+    },
+    reviews: {
+        type: [String]
+    }
+});
 
-module.exports = mongoose.model('Beer', beerSchema)
+module.exports = mongoose.model('beer', beerSchema)
