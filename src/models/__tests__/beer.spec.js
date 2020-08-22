@@ -1,20 +1,10 @@
 const mongoose = require('mongoose')
 const Beer = require("../beer")
-const { connect, disconnect } = require('../../database')
+const { connect, disconnect, clearDB } = require('../../database')
 
 describe('Beer Schema', () => {
 
     beforeEach(async() => {
-        const clearDB = async () => {
-            try {
-                for (let i in mongoose.connection.collections) {
-                    await mongoose.connection.collections[i].deleteMany()
-                }
-            } catch (err) {
-                throw err
-            }
-        }
-
         try {
             if (mongoose.connection.readyState === 0) {
                 await connect()

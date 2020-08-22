@@ -7,10 +7,20 @@ const connect = () => {
     })
 }
 
-const disconnect = async () => {
+const disconnect = () => {
     return mongoose.disconnect()
 }
 
+const clearDB = async () => {
+    try {
+        for (let i in mongoose.connection.collections) {
+            await mongoose.connection.collections[i].deleteMany()
+        }
+    } catch (err) {
+        throw err
+    }
+}
+
 module.exports = {
-    connect, disconnect
+    connect, disconnect, clearDB
 }
