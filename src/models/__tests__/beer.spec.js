@@ -63,16 +63,19 @@ describe('Beer Schema', () => {
 
     test('create beer successfully', async() => {
         try {
-            const beer = await Beer.create({
+            const { _id, __v, ...beer } = (await Beer.create({
                 name: 'Odds Lager',
                 price: 60,
                 brand: 'Odds'
+            })).toObject()
+
+            expect(_id).toBeDefined()
+            expect(beer).toEqual({
+                name: 'Odds Lager',
+                price: 60,
+                brand: 'Odds',
+                reviews: []
             })
-            expect(beer._id).toBeDefined()
-            expect(beer.name).toBe('Odds Lager')
-            expect(beer.price).toBe(60)
-            expect(beer.brand).toBe('Odds')
-            expect(beer.reviews instanceof Array).toBeTruthy()
         } catch (err) {
             throw err
         }
